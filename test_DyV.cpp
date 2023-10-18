@@ -2,11 +2,23 @@
 #include <vector>
 
 int main(){
-	std::vector<int> vec{4, 2, 6, 9};
-	std::vector<double> vecc{2.6, 8.6, 3.4, 5.6};
-	std::vector<int> vecs{4, 6, 2};
+	std::vector<int> a{1, 2, 6, 9};
+	std::vector<double> b{2.6, 3.6, 6.4, 8.6};
+	std::vector<int> c{7, 5, 2};
 
-	std::cout << "Busqueda Binaria (int) = " << BusquedaBinaria(6, vec, 0, 3) << std::endl;		
-       	std::cout << "Busqueda Binaria (float) = " << BusquedaBinaria(4.6, vecc, 0, 3) << std::endl;	
-	std::cout << "Busqueda Binaria (short) = " << BusquedaBinaria(2, vecs, 0, 2) << std::endl;   
+	try{
+	std::cout << "Busqueda Binaria (int) = " << BusquedaBinaria(6, a, 0, 3) << std::endl;
+	}catch(std::runtime_error &e){
+		std::cout << e.what() << std::endl;
+	}
+	try{	
+       	std::cout << "Busqueda Binaria (float) = " << BusquedaBinaria(4.6, b, 0, 3) << std::endl;
+	}catch(std::runtime_error &e){
+		std::cout << e.what() << std::endl;
+	}
+	try{	
+	std::cout << "Busqueda Binaria_INV (int) = " << BusquedaBinaria_INV(7, c, 0, 2) << std::endl;   
+	}catch(std::runtime_error &e){
+		std::cout << e.what() << std::endl;
+	}
 }
