@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 template<typename T>
 
@@ -33,31 +34,80 @@ int BusquedaBinaria_INV(T X, std::vector<T>& V, int ini, int fin){
 
 template<typename T>
 
-int Partition(std::vector<T>& V, int ini, int fin){
-        T x = V[fin];
-        int i = ini;
-        for(int j = ini; j < fin; j++){
-              if(V[j] <= x){
-                    T aux = V[i];
-                    V[i] = V[j];
-                    V[j] = aux;
-		    i++;
-              }
-	      else{
-        	T aux = V[i];
-		V[i] = V[fin];
-		V[fin] = aux;
-		}
+int PartitionIni(std::vector<T>& V, int ini, int fin){
+        T x = V[ini];
+        int i = fin;
+        for(int j = fin; j > ini; j--){
+              if(V[j] > x){
+		    std::swap(V[i], V[j]);
+		    i--;
 	}
+	}
+	std::swap(V[i], V[ini]);      
 	return i;
 }
 
 template<typename T>
 
-void QuickSort(std::vector<T>& V, int ini, int fin){
+int PartitionFin(std::vector<T>& V, int ini, int fin){
+        T x = V[fin];
+	int i = ini;
+        for(int j = ini; j < fin; j++){
+              if(V[j] <= x){
+		    std::swap(V[i], V[j]);
+		    i++;
+        }
+        }
+	std::swap(V[i], V[fin]);
+        return i;
+}
+
+template<typename T>
+
+int PartitionMedio(std::vector<T>& V, int ini, int fin){
+	int medio = (fin + 1 + ini)/2;
+	T x = V[medio];
+        int i = ini;
+        for(int j = ini; j <= fin; j++){
+              if(V[j] < x){
+		    std::swap(V[i], V[j]);
+		    i++;
+        }
+        }
+	std::swap(V[i], V[medio]);
+
+        return i;
+}
+
+
+template<typename T>
+
+void QuickSortIni(std::vector<T>& V, int ini, int fin){
         if(ini < fin){
-                 int pivot = Partition(V, ini, fin);
-		 QuickSort(V, ini, pivot - 1);
-                 QuickSort(V, pivot + 1, fin);
+                 int pivot = PartitionIni(V, ini, fin);
+		 QuickSortIni(V, ini, pivot - 1);
+                 QuickSortIni(V, pivot + 1, fin);
 	}
 }
+
+template<typename T>
+
+void QuickSortFin(std::vector<T>& V, int ini, int fin){
+        if(ini < fin){
+                 int pivot = PartitionFin(V, ini, fin);
+                 QuickSortFin(V, ini, pivot - 1);
+                 QuickSortFin(V, pivot + 1, fin);
+        }
+}
+
+template<typename T>
+
+void QuickSortMedio(std::vector<T>& V, int ini, int fin){
+        if(ini < fin){
+                 int pivot = PartitionMedio(V, ini, fin);
+                 QuickSortMedio(V, ini, pivot - 1);
+                 QuickSortMedio(V, pivot + 1, fin);
+        }
+}
+
+
